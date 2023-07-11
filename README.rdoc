@@ -1,6 +1,8 @@
-{<img src="https://badge.fury.io/rb/ridl.svg" alt="Gem Version" />}[https://badge.fury.io/rb/ridl]
-{<img src="https://github.com/RemedyIT/ridl/workflows/linux/badge.svg" alt="Linux CI" />}[https://github.com/RemedyIT/ridl/actions?query=workflow%3Alinux]
-{<img src="https://www.codefactor.io/repository/github/remedyit/ridl/badge" alt="CodeFactor" />}[https://www.codefactor.io/repository/github/remedyit/ridl]
+{rdoc-image:https://badge.fury.io/rb/ridl.svg}[https://badge.fury.io/rb/ridl]
+{rdoc-image:https://github.com/RemedyIT/ridl/workflows/r2corba/badge.svg}[https://github.com/RemedyIT/ridl/actions?query=workflow%3Ar2corba]
+{rdoc-image:https://github.com/RemedyIT/ridl/workflows/taox11/badge.svg}[https://github.com/RemedyIT/ridl/actions?query=workflow%3Ataox11]
+{rdoc-image:https://github.com/RemedyIT/ridl/workflows/ciaox11/badge.svg}[https://github.com/RemedyIT/ridl/actions?query=workflow%3Aciaox11]
+{rdoc-image:https://www.codefactor.io/repository/github/remedyit/ridl/badge}[https://www.codefactor.io/repository/github/remedyit/ridl]
 
 = RIDL Compiler
 
@@ -18,7 +20,8 @@ RIDL provides a framework for implementing compiler/generators for OMG standard 
 * a builtin IDL preprocessor expression parser/evaluator
 * a flexible framework for pluggable (and stackable) backends
 * basic support for backend code re-generation
-* compliant with the {OMG IDL 3.5}[https://www.omg.org/spec/IDL/3.5] standard.
+* compliant with the {OMG IDL 3.5}[https://www.omg.org/spec/IDL/3.5] standard
+* support for {OMG IDL 4.2}[https://www.omg.org/spec/IDL/4.2] annotations
 
 Remedy IT has developed multiple backends for RIDL. These include:
 * {R2CORBA}[https://www.remedy.nl/opensource/r2corba.html] generating Ruby code
@@ -46,3 +49,7 @@ The RIDL Gem is a Ruby-only Gem without any dependencies.
 == Releasing new RIDL Ruby Gem
 
 A new RIDL ruby gem release can be made by incrementing the RIDL version in link:lib/ridl/version.rb and create a new release on {github}[https://github.com/RemedyIT/ridl/releases] matching the new version (for example v2.7.0). The github {Ruby Gem Release}[https://github.com/RemedyIT/ridl/actions?query=workflow%3A%22Ruby+Gem+Release%22] action will automatically create a new gem and push it to {Rubygems.org}[https://www.rubygems.org/gems/ridl].
+
+== Regenerating `lib/ridl/parser.rb`
+
+The file `lib/ridl/parser.rb` can be regenerated using `racc -o parser.rb -E parser.ry`. The option `-E` embeds the racc parser within RIDL which is required for RIDL because jruby doesn't contain `RACC` as cruby does.
