@@ -172,26 +172,31 @@ module IDL
         val >= self.min && val <= self.max
       end
 
+      def typename
+        self.class::IDL4_typename
+      end
+
       def next(val)
         val < self.max ? val + 1 : self.min
       end
 
-      def Integer.newclass(range, bits)
+      def Integer.newclass(range, bits,idl4_typename)
         k = Class.new(self)
         k.const_set('Range', range)
         k.const_set('BITS', bits)
+        k.const_set('IDL4_typename', idl4_typename)
         k
       end
     end
-    Octet     = Integer.newclass(0..0xFF, 8)
-    UTinyShort = Integer.newclass(0..0xFF, 8)
-    UShort    = Integer.newclass(0..0xFFFF, 16)
-    ULong     = Integer.newclass(0..0xFFFFFFFF, 32)
-    ULongLong = Integer.newclass(0..0xFFFFFFFFFFFFFFFF, 64)
-    TinyShort = Integer.newclass(-0x80...0x800, 8)
-    Short     = Integer.newclass(-0x8000...0x8000, 16)
-    Long      = Integer.newclass(-0x80000000...0x80000000, 32)
-    LongLong  = Integer.newclass(-0x8000000000000000...0x8000000000000000, 64)
+    Octet     = Integer.newclass(0..0xFF, 8, 'octet')
+    UTinyShort = Integer.newclass(0..0xFF, 8, 'uint8')
+    UShort    = Integer.newclass(0..0xFFFF, 16, 'uint16')
+    ULong     = Integer.newclass(0..0xFFFFFFFF, 32, 'uint32')
+    ULongLong = Integer.newclass(0..0xFFFFFFFFFFFFFFFF, 64, 'uint64')
+    TinyShort = Integer.newclass(-0x80...0x800, 8, 'int8')
+    Short     = Integer.newclass(-0x8000...0x8000, 16, 'int16')
+    Long      = Integer.newclass(-0x80000000...0x80000000, 32, 'int32')
+    LongLong  = Integer.newclass(-0x8000000000000000...0x8000000000000000, 64, 'int64')
 
     class Boolean < Type
       Range = [true, false]
