@@ -180,6 +180,10 @@ module IDL
         val < self.max ? val + 1 : self.min
       end
 
+      def default
+        0
+      end
+
       def Integer.newclass(range, bits,idl4_typename)
         k = Class.new(self)
         k.const_set('Range', range)
@@ -219,6 +223,10 @@ module IDL
 
       def in_range?(val)
         Range.include?(val)
+      end
+
+      def default
+        false
       end
 
       def next(val)
